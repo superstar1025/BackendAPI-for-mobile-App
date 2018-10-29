@@ -1,0 +1,48 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.asideFolded = false; app.settings.asideDock = false;">
+    <!-- main -->
+    <div class="col">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">Dashboard - BP</h1>
+                    <small class="text-muted">Welcome to Netmino</small>
+                </div>
+            </div>
+        </div>
+        <!-- / main header -->
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="row row-sm text-center">
+                        <div class="col-xs-6">
+                            <div class="panel padder-v item">
+                                <div class="h1 text-info font-thin h1">{{totalUsers}}</div>
+                                <span class="text-muted text-xs">Users</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="" class="block panel padder-v bg-primary item">
+                                <span class="text-white font-thin h1 block">{{totalEvents}}</span>
+                                <span class="text-muted text-xs">Events</span>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="" class="block panel padder-v bg-info item">
+                                <span class="text-white font-thin h1 block">{{totalHubs}}</span>
+                                <span class="text-muted text-xs">Hubs</span>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel padder-v item">
+                                <div class="font-thin h1">{{totalBusinessProfiles}}</div>
+                                <span class="text-muted text-xs">Businesses</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / main -->
+</div>

@@ -1,0 +1,9 @@
+<div class="ngCellText cellToolTip">
+    <button class="btn btn-sm btn-info" ng-click="editHub(row.entity.hub)" tooltip-placement="left"
+            tooltip="Edit hub"><i class="glyphicon glyphicon-edit"></i></button>
+    <button class="btn btn-sm btn-danger" ng-click="toggleHub(row.entity.hub, false)" tooltip-placement="left"
+            tooltip="Deactivate hub" ng-show="row.entity.hub.is_active"><i class="glyphicon glyphicon-remove"></i></button>
+    <button class="btn btn-sm btn-success" ng-click="toggleHub(row.entity.hub, true)" tooltip-placement="left"
+            tooltip="Activate hub" ng-show="!row.entity.hub.is_active"><i class="glyphicon glyphicon-ok m-l-none"></i>
+    </button>
+</div>

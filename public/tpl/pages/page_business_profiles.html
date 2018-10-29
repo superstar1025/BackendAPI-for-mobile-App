@@ -1,0 +1,40 @@
+<div class="wrapper-md">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="pull-right">
+                        Search: <input type="text" ng-model="usersFilterOptions.filterText"/>
+                    </span>
+                    Users
+                </div>
+                <div class="table-responsive">
+                    <div ng-grid="usersGridOptions" class="grid-h-md"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" ng-show="selectedUser">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="pull-right">
+                        Search: <input type="text" ng-model="profilesFilterOptions.filterText"/>
+                    </span>
+                    Business Profiles
+                </div>
+                <div class="panel-heading text-center">
+                    {{selectedUser.name}}'s business profile
+                    <span class="pull-right panel-actions">
+                        <a class="btn btn-success" ng-click="goToBusinessProfilePage()">Add Profile</a>
+                    </span>
+                </div>
+
+                <div class="table-responsive">
+                    <div ng-grid="profilesGridOptions" class="grid-h-md"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

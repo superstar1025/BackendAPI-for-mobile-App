@@ -1,0 +1,13 @@
+if env != "production"
+    link(rel="stylesheet", href="/js/components/bootstrap/dist/css/bootstrap.css", type="text/css")
+    link(rel="stylesheet", href="/js/components/angular-xeditable/dist/css/xeditable.css", type="text/css")
+    link(rel="stylesheet", href="/css/animate.css", type="text/css")
+    link(rel="stylesheet", href="/js/components/font-awesome/css/font-awesome.min.css", type="text/css")
+    link(rel="stylesheet", href="/fonts/simplelineicons/simple-line-icons.css", type="text/css")
+    link(rel="stylesheet", href="/css/font.css", type="text/css")
+    link(rel="stylesheet", href="/css/app.css", type="text/css")
+    link(rel="stylesheet", href="/js/components/leaflet/dist/leaflet.css", type="text/css")
+    link(rel="stylesheet", href="/js/components/angular-growl/build/angular-growl.min.css", type="text/css")
+    link(rel="stylesheet", href="/js/components/angular-block-ui/dist/angular-block-ui.min.css", type="text/css")
+else
+    link(rel='stylesheet', href='/dist/css/app.min.css?rel=@@timestamp', type='text/css')

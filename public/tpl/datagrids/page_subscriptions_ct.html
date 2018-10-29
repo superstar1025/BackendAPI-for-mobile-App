@@ -1,0 +1,23 @@
+<div class="ngCellText">
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5 text-center b-r">
+                <img width="100" height="100"
+                     ng-src="{{row.entity.profile.logo.file.original.defaultUrl || 'img/no_avatar_org.jpg'}}" alt="..."/>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-2 text-ellipsis">
+                <div class="text-lg">{{row.entity.profile.name}}</div>
+                <small ng-if="row.entity.profile.location.display_name">
+                    {{row.entity.profile.location.display_name}}
+                </small>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5 text-right">
+                <a class="btn btn-success event-action"
+                   ng-click="follow(row.entity)" ng-if="!row.entity.isISubscribed">Follow</a>
+                <a class="btn btn-danger event-action"
+                   ng-click="unfollow(row.entity)" ng-if="row.entity.isISubscribed">Unfollow</a>
+            </div>
+        </div>
+    </div>
+</div>

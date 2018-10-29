@@ -1,0 +1,29 @@
+{
+  "preset": "google",
+
+  "requireParenthesesAroundIIFE": true,
+  "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+  "maximumLineLength": 120,
+  "validateLineBreaks": "LF",
+
+  "disallowKeywords": ["with"],
+  "disallowSpacesInsideObjectBrackets": null,
+  "disallowImplicitTypeConversion": ["string"],
+
+  "safeContextKeyword": "_this",
+
+  "excludeFiles": [
+    "node_modules/**",
+    "public/js/components/**",
+    ".bower-cache",
+    ".bower-registry",
+    ".bower-tmp",
+    "public/dist/**",
+    "public/l10n/*.js",
+    "*.log",
+    "*.md",
+    "*.json",
+    "Procfile",
+    "start"
+  ]
+}

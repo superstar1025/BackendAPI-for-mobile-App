@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h3 class="modal-title">Add role</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal form-validation" name="form">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="name">Name</label>
+
+            <div class="col-sm-10">
+                <input type="name" name="name" id="name" ng-model="new_role.description" class="form-control"
+                       placeholder="Name" ui-validate="'$value.length > 0'"/>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ok()" ng-disabled='form.$invalid'>Add</button>
+</div>

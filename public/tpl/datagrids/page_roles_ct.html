@@ -1,0 +1,7 @@
+<div class="ngCellText cellToolTip">
+    <button class="btn btn-sm btn-danger" ng-click="deactivateRole(row.entity, false)" tooltip-placement="left"
+            tooltip="Deactivate role" ng-show="row.entity.is_active"><i class="glyphicon glyphicon-remove"></i></button>
+    <button class="btn btn-sm btn-success" ng-click="toggleRole(row.entity, true)" tooltip-placement="left"
+            tooltip="Activate role" ng-show="!row.entity.is_active"><i class="glyphicon glyphicon-ok m-l-none"></i>
+    </button>
+</div>

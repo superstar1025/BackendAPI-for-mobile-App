@@ -1,0 +1,5 @@
+<div class="ngCellText cellToolTip">
+    <button class="btn btn-sm btn-info" ng-click="editEntity(row.entity)"><i class="glyphicon glyphicon-edit"></i></button>
+    <button class="btn btn-sm btn-danger" ng-click="toggleAccount(row.entity, false)" ng-show="row.entity.is_active"><i class="glyphicon glyphicon-remove"></i></button>
+    <button class="btn btn-sm btn-success" ng-click="toggleAccount(row.entity, true)" ng-show="!row.entity.is_active"><i class="glyphicon glyphicon-ok"></i></button>
+</div>

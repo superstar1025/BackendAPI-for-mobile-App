@@ -1,0 +1,116 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+    <div class="col">
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">{{profile.name}}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-md" block-ui="blockableBusinessProfileUI">
+            <div class="row">
+                <div class="col-md-12 bg-white p-t-md">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">Profile</div>
+                            <div class="panel-body">
+                                <div class="pull-left m-r">
+                                    <img class="thumb-xl" ng-src="{{profile.created_by.picture || 'img/no_avatar.jpg'}}"
+                                         alt="..."/>
+                                </div>
+                                <div class="clear padder b m-b">
+                                    <p class="m-b">
+                                        Name: {{profile.created_by.name}}
+                                    </p>
+
+                                    <p class="m-b">
+                                        Email: {{profile.created_by.email}}
+                                    </p>
+
+                                    <p class="m-b">
+                                        Phone: {{profile.created_by.phone || 'N/A'}}
+                                    </p>
+
+                                    <p class="m-b-none">
+                                        Website: {{profile.created_by.website || 'N/A'}}
+                                    </p>
+                                </div>
+                                <div class="row m-b">
+                                    <div class="col-xs-12">
+                                        <div class="padder b">
+                                            <p class="m-b">
+                                                <span ng-show="profile.primary_category">{{profile.primary_category.name}}</span>
+                                                <span ng-show="profile.secondary_category">/ {{profile.secondary_category.name}}</span>
+                                                <span ng-show="profile.tertiary_category">/ {{profile.tertiary_category.name}}</span>
+                                            </p>
+
+                                            <p class="m-b-none">
+                                                {{profile.description}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="profile.location">
+                                    <div class="col-xs-12">
+                                        <div class="padder b">
+                                            <p class="m-b">
+                                                {{profile.location.display_name}}
+                                            </p>
+                                            <leaflet center="center" height="200px" markers="markers"></leaflet>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">
+                                Users Following
+                                <span class="pull-right panel-actions"
+                                      ng-if="isSignedIn">
+                                    <a class="btn btn-success" ng-if="!isProfileFollowed"
+                                       ng-click="followBusinessProfile(profile._id)">Follow</a>
+                                </span>
+                                <span class="pull-right panel-actions"
+                                      ng-if="isSignedIn">
+                                    <a class="btn btn-danger" ng-if="isProfileFollowed"
+                                       ng-click="unfollowBusinessProfile(profile._id)">Unfollow</a>
+                                </span>
+                            </div>
+                            <div class="panel-body" ng-if="!businessFollowers || businessFollowers.total == 0">
+                                <div class="text-center" translate="aside.nav.your_stuff.NO_FOLLOWERS">No Followers
+                                </div>
+                            </div>
+                            <div class="panel-body text-center" ng-if="businessFollowers.total > 0">
+                                <div class="wrapper-xs inline" ng-repeat="follower in businessFollowers.followers">
+                                    <a href><img class="thumb-follower"
+                                                 ng-src="{{follower.user.picture || 'img/no_avatar.jpg'}}"/></a>
+                                    <p class="m-b-none">{{follower.user.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">
+                                <span class="pull-right font-normal" ng-if="businessEvents.total > 0">
+                                    Search: <input type="text" ng-model="filterOptions.events.filterText"/>
+                                </span>
+                                Events
+                            </div>
+
+                            <div class="panel-body" ng-if="!businessEvents || businessEvents.total == 0">
+                                <div class="text-center" translate="aside.nav.your_stuff.NO_EVENTS">No Events</div>
+
+                            </div>
+                            <div class="table-responsive" ng-if="businessEvents.total > 0">
+                                <div ng-grid="eventsGridOptions" class="grid-h-md"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="ngCellText">
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5 text-center b-r">
+                <img class="thumb-lg" ng-src="{{row.entity.picture || 'img/no_avatar.jpg'}}" alt="..."/>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-2 text-ellipsis">
+                <div class="text-lg">{{row.entity.name}}</div>
+                <small ng-if="row.entity.location.display_name">
+                    {{row.entity.location.display_name}}
+                </small>
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5 text-right" ng-if="user._id !== row.entity._id">
+                <a class="btn btn-success event-action"
+                   ng-click="addFriend(row.entity)" ng-if="!row.entity.friendship">Add Friend</a>
+                <a class="btn btn-danger event-action"
+                   ng-click="unfriend(row.entity)" ng-if="row.entity.friendship">Unfriend</a>
+            </div>
+        </div>
+    </div>
+</div>

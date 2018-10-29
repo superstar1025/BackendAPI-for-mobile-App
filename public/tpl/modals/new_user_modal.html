@@ -1,0 +1,57 @@
+<div class="modal-header">
+    <h3 class="modal-title">Register new user</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal form-validation" name="form">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="email">Email</label>
+
+            <div class="col-sm-10">
+                <input type="email" name="email" id="email" ng-model="new_user.email" class="form-control"
+                       placeholder="Email" ui-validate="'$value.length > 0'"/>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="username">Full Name</label>
+
+            <div class="col-sm-10">
+                <input type="text" name="username" id="username" ng-model="new_user.name" class="form-control"
+                       placeholder="Username" required/>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="password">Password</label>
+
+            <div class="col-sm-10">
+                <input type="password" name="password" id="password" ng-model="new_user.password" class="form-control"
+                       placeholder="Password"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="confirmPassword">Confirm password</label>
+
+            <div class="col-sm-10">
+                <input type="password" name="confirmPassword" id="confirmPassword" ng-model="new_user.confirmPassword"
+                       class="form-control" placeholder="Confirm password"
+                       ui-validate="{equal: '$value==new_user.password', len: 'new_user.password.length >= 4'}"
+                       ui-validate-watch="'new_user.password'"/>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Role</label>
+
+            <div class="col-sm-10">
+                <select name="account" class="form-control m-b" ng-model='new_user.role'
+                        ng-options="role as role.description for role in roles">
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ok()" ng-disabled='form.$invalid'>Save</button>
+</div>

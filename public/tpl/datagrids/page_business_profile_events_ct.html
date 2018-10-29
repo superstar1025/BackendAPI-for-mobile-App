@@ -1,0 +1,14 @@
+<div class="ngCellText">
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-xs-6 text-ellipsis">
+                <div><a href>{{row.entity.name}}</a></div>
+                <small class="text-muted">{{row.entity.location.display_name}}</small>
+            </div>
+            <div class="col-xs-6 text-right">
+                <div>{{row.entity.start_datetime | date: "dd-MMM-yyyy hh:mm a"}}</div>
+                <div>{{row.entity.end_datetime | date: "dd-MMM-yyyy hh:mm a"}}</div>
+            </div>
+        </div>
+    </div>
+</div>

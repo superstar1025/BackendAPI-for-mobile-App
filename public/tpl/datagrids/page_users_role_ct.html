@@ -1,0 +1,7 @@
+<div class="ngCellText">
+    <a href="#" editable-select="row.entity.role" e-ng-options="s as s.description for s in roles"
+       buttons="no"
+       onbeforesave="updateRole($data, row.entity._id)">
+        {{row.entity.role.description}}
+    </a>
+</div>

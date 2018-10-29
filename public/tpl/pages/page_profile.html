@@ -1,0 +1,160 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+  <div class="col">
+    <div class="app-bg-default">
+      <div class="wrapper-lg bg-white-opacity">
+        <div class="row m-t">
+          <div class="col-sm-7">
+            <a href class="thumb-lg pull-left m-r">
+              <img ng-src="{{currentUser.picture || 'img/no_avatar.jpg'}}" class="img-circle">
+            </a>
+            <div class="clear m-b">
+              <div class="m-b m-t-sm">
+                <span class="h3 text-black">{{currentUser.name || currentUser.email}}</span>
+                <small class="m-l">{{currentUser.location.display_name}}</small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">
+        Profile information
+      </div>
+      <div class="panel-body">
+        <form class="form-horizontal form-validation" name="profileForm" ng-if="!isNetworkLogin">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="email">Email</label>
+            <div class="col-sm-10">
+              <input type="email" name="email" id="email" ng-model="userModel.email" class="form-control" placeholder="Email" ui-validate="'$value.length > 0'"/>
+              <span ng-show="profileForm.email.$error.validator" class="help-block m-b-none">This field is required!</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="username">Username</label>
+            <div class="col-sm-10">
+              <input type="text" name="username" id="username" ng-model="userModel.name" class="form-control" placeholder="Username"/>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="location">Location</label>
+            <div class="col-sm-10">
+                <input name="location"
+                       id="location"
+                       ng-class="{'ng-dirty ng-invalid': geoSearchTxt && locationNotFound, 'ng-valid': !locationNotFound}"
+                       type="text"
+                       class="form-control"
+                       ng-model="geoSearchTxt"
+                       ng-change="geoSearch(geoSearchTxt, profileForm)"
+                       placeholder="Type an address">
+                <small class="text-muted">{{userModel.location.display_name}}</small>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Gender</label>
+            <div class="col-sm-10">
+              <div class="radio">
+                <label class="i-checks">
+                  <input type="radio" name="gender" ng-model="userModel.gender" value="male">
+                  <i></i>
+                  Male
+                </label>
+              </div>
+              <div class="radio">
+                <label class="i-checks">
+                  <input type="radio" name="gender" ng-model="userModel.gender" value="female">
+                  <i></i>
+                  Female
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-4">
+              <button class="btn btn-sm btn-default btn-rounded" ng-click="cancelProfile()">Cancel</button>
+              <button href class="btn btn-sm btn-primary btn-rounded" ng-click="updateProfile(userModel)" ng-disabled='profileForm.$invalid'>Update profile</button>
+            </div>
+          </div>
+
+        </form>
+        <form class="form-horizontal" ng-if="isNetworkLogin">
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Email</label>
+            <div class="col-lg-10">
+              <p class="form-control-static">{{userModel.email_social}}</p>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Username</label>
+            <div class="col-lg-10">
+              <p class="form-control-static">{{userModel.name}}</p>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Location</label>
+            <div class="col-lg-10">
+              <p class="form-control-static">{{userModel.location}}</p>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="form-group">
+            <label class="col-lg-2 control-label">Gender</label>
+            <div class="col-lg-10">
+              <p class="form-control-static">{{userModel.gender}}</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="panel panel-default" ng-if="!isNetworkLogin">
+      <div class="panel-heading font-bold">
+        Change password
+      </div>
+      <div class="panel-body">
+        <form class="form-horizontal form-validation" name="form">
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="password">Password</label>
+            <div class="col-sm-10">
+              <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      ng-model="password"
+                      class="form-control"
+                      placeholder="Password"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="confirmPassword">Confirm password</label>
+            <div class="col-sm-10">
+              <input
+                      type="password"
+                      name="confirmPassword"
+                      id="confirmPassword"
+                      ng-model="confirmPassword"
+                      class="form-control"
+                      placeholder="Confirm password"
+                      ui-validate="{equal: '$value==password', len: 'password.length >= 4'}"
+                      ui-validate-watch="'password'"/>
+              <span ng-show="form.confirmPassword.$error.equal" class="help-block m-b-none">Passwords do not match!</span>
+              <span ng-show="form.confirmPassword.$error.len" class="help-block m-b-none">Password must be at least 4 characters long!</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-4">
+              <button href class="btn btn-sm btn-dark btn-rounded" ng-click="changePassword(password, confirmPassword)" ng-disabled='form.$invalid'>Change password</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

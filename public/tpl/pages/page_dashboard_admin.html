@@ -1,0 +1,136 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="app.settings.asideFolded = false; app.settings.asideDock = false;">
+    <div class="col">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+                    <small class="text-muted">Welcome to Netmino</small>
+                </div>
+            </div>
+        </div>
+        <!-- / main header -->
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="row row-sm text-center">
+                        <div class="col-xs-6">
+                            <div class="panel padder-v item">
+                                <div class="h1 text-info font-thin h1">{{totalUsers}}</div>
+                                <span class="text-muted text-xs">Users</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="" class="block panel padder-v bg-primary item">
+                                <span class="text-white font-thin h1 block">{{totalEvents}}</span>
+                                <span class="text-muted text-xs">Events</span>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="" class="block panel padder-v bg-info item">
+                                <span class="text-white font-thin h1 block">{{totalHubs}}</span>
+                                <span class="text-muted text-xs">Hubs</span>
+                            </a>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="panel padder-v item">
+                                <div class="font-thin h1">{{totalBusinessProfiles}}</div>
+                                <span class="text-muted text-xs">Businesses</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col-sm-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                        <div ng-repeat="entry in roleEntries" class="pull-right m-t-xs m-l-sm"
+                                             ng-class="{'text-primary': entry.role.name == 'application_administrator',
+                                                        'text-info': entry.role.name == 'application_user',
+                                                        'text-warning': entry.role.name == 'business_provider' }">
+                                            <i class="fa fa-circle"></i>
+                                            <span class="text-black">{{entry.users}}</span>
+                                        </div>
+                                    <span class="font-thin h3">Users</span>
+                                </div>
+                                <table class="table table-striped m-b-none dashboard-table">
+                                    <tbody>
+                                    <tr ng-repeat="user in users">
+                                        <td>
+                                            <span class="thumb-sm avatar m-t-n-sm m-b-n-sm m-l-sm">
+                                                <img ng-src="{{user.picture || 'img/no_avatar.jpg'}}" alt="...">
+                                            </span>
+                                        </td>
+                                        <td>{{user.name}}</td>
+                                        <td>
+                                            <span class="label pull-right m-t-xs bg-dark"
+                                                    ng-class="{ 'bg-primary': user.role.name == 'application_administrator',
+                                                                'bg-info': user.role.name == 'application_user',
+                                                                'bg-warning': user.role.name == 'business_provider' }">
+                                                {{user.role.description}}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <td>
+                                            <button class="btn btn-primary btn-addon"><i class="fa fa-plus"></i>Add teammate</button>
+                                        </td>
+                                        <td colspan="2">
+                                            <span class="badge text-muted pull-right">{{totalUsers}}</span>
+                                        </td>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7" ng-if="activities.length > 0">
+                    <div class="wrapper">
+                        <ul class="timeline">
+                            <li class="tl-header">
+                                <div class="btn btn-info">Now</div>
+                            </li>
+                            <li class="tl-item" ng-repeat="item in activities">
+                                <div class="tl-wrap"
+                                     ng-class="{'b-info': item.hub,
+                                                'b-primary': item.event,
+                                                'b-success': item.business}">
+                                    <span class="tl-date">{{item.date_created | fromNow}}</span>
+
+                                    <div class="tl-content panel padder b-a">
+                                        <span class="arrow left pull-up"></span>
+
+                                        <div class="text-lt m-b-sm">
+                                            {{item.title | uppercase}}: <strong>{{item | extractName}}</strong>
+
+                                        </div>
+                                        <div class="panel-body pull-in b-t b-light">
+                                            <a ui-sref="app.page.profile({id: item.created_by._id})"
+                                               class="thumb pull-right m-l m-t-xs avatar">
+                                                <img ng-src="{{item.created_by.picture || 'img/no_avatar.jpg'}}">
+                                            </a>
+
+                                            <div class="clear">
+                                                <a ui-sref="app.page.profile({id: item.created_by._id})"
+                                                   class="text-primary block m-b-xs">@{{item.created_by.name}} <i
+                                                        class="icon-twitter"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="tl-header" ng-if="activities.length < totalServerItems">
+                                <div class="btn btn-sm btn-default btn-rounded"
+                                     ng-click="loadData(pagingOptions)">more
+                                </div>
+                            </li>
+                            <li class="tl-header" ng-if="activities.length == totalServerItems">
+                                <div class="btn btn-sm btn-default btn-rounded">end</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

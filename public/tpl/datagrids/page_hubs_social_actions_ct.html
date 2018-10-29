@@ -1,0 +1,11 @@
+<div class="ngCellText cellToolTip">
+    <button class="btn btn-sm btn-success" ng-if="!row.entity.isFollowed" ng-click="followHub(row.entity)" tooltip-placement="left"
+            tooltip="Follow hub"><i class="icon-user-follow"></i></button>
+    <button class="btn btn-sm btn-danger" ng-if="row.entity.isFollowed" ng-click="unfollowHub(row.entity)" tooltip-placement="left"
+            tooltip="Unfollow hub"><i class="icon-user-unfollow"></i></button>
+    <button class="btn btn-sm btn-dark" ng-click="muteHub(row.entity)" tooltip-placement="left"
+            tooltip="Mute hub" ng-if="!row.entity.isMuted"><i class="glyphicon glyphicon-remove"></i></button>
+    <button class="btn btn-sm btn-primary" ng-click="unmuteHub(row.entity)" tooltip-placement="left"
+            tooltip="Unmute hub" ng-if="row.entity.isMuted"><i class="glyphicon glyphicon-ok m-l-none"></i>
+    </button>
+</div>

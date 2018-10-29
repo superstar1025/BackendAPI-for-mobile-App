@@ -1,0 +1,122 @@
+if env != "production"
+  //jQuery
+  script(type="text/javascript", src="js/components/jquery/dist/jquery.min.js")
+
+  //Angular
+  script(type="text/javascript", src="js/components/angular/angular.js")
+  script(type="text/javascript", src="js/components/angular-cookies/angular-cookies.js")
+  script(type="text/javascript", src="js/components/angular-sanitize/angular-sanitize.js")
+  script(type="text/javascript", src="js/components/angular-growl/build/angular-growl.js")
+  script(type="text/javascript", src="js/components/angular-block-ui/dist/angular-block-ui.js")
+  script(type="text/javascript", src="js/components/angular-touch/angular-touch.js")
+  script(type="text/javascript", src="js/components/angular-ui-router/release/angular-ui-router.js")
+  script(type="text/javascript", src="js/components/ngstorage/ngStorage.js")
+  script(type="text/javascript", src="js/components/angular-ui-utils/ui-utils.js")
+
+  //underscore
+  script(type="text/javascript", src="js/components/underscore/underscore-min.js")
+
+  //bootstrap
+  script(type="text/javascript", src="js/components/angular-bootstrap/ui-bootstrap-tpls.js")
+
+  //lazyload
+  script(type="text/javascript", src="js/components/oclazyload/dist/ocLazyLoad.js")
+
+  //satelizer
+  script(type="text/javascript", src="js/components/satellizer/satellizer.js")
+
+  //translate
+  script(type="text/javascript", src="js/components/angular-translate/angular-translate.js")
+  script(type="text/javascript", src="js/modules/loader-static-files.js")
+  script(type="text/javascript", src="js/modules/storage-cookie.js")
+  script(type="text/javascript", src="js/modules/storage-local.js")
+
+  //maps
+  script(type="text/javascript", src="js/components/leaflet/dist/leaflet.js")
+  script(type="text/javascript", src="js/components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js")
+  script(type="text/javascript", src="js/components/angularjs-geolocation/dist/angularjs-geolocation.min.js")
+
+  //App
+  script(type="text/javascript", src="js/app.js")
+  script(type="text/javascript", src="js/config.js")
+  script(type="text/javascript", src="js/config.lazyload.js")
+  script(type="text/javascript", src="js/config.router.js")
+  script(type="text/javascript", src="js/main.js")
+
+  //Services
+  script(type="text/javascript", src="js/services/ui-load.js")
+  script(type="text/javascript", src="js/services/delayService.js")
+  script(type="text/javascript", src="js/services/geosearchService.js")
+  script(type="text/javascript", src="js/services/eventHelperService.js")
+  script(type="text/javascript", src="js/services/underscoreFactory.js")
+  script(type="text/javascript", src="js/services/netminoUtils.js")
+  script(type="text/javascript", src="js/services/localStorageFactory.js")
+
+  //API
+  script(type="text/javascript", src="js/services/api/mixins/users.js")
+  script(type="text/javascript", src="js/services/api/mixins/roles.js")
+  script(type="text/javascript", src="js/services/api/mixins/hubs.js")
+  script(type="text/javascript", src="js/services/api/mixins/events.js")
+  script(type="text/javascript", src="js/services/api/mixins/event_types.js")
+  script(type="text/javascript", src="js/services/api/mixins/tags.js")
+  script(type="text/javascript", src="js/services/api/mixins/activities.js")
+  script(type="text/javascript", src="js/services/api/mixins/business_profiles.js")
+  script(type="text/javascript", src="js/services/api/mixins/business_categories.js")
+  script(type="text/javascript", src="js/services/api/mixins/auth.js")
+  script(type="text/javascript", src="js/services/api/mixins/tracks.js")
+  script(type="text/javascript", src="js/services/api/api.js")
+  //filters
+  script(type="text/javascript", src="js/filters/fromNow.js")
+  script(type="text/javascript", src="js/filters/activityFilters.js")
+  script(type="text/javascript", src="js/filters/userActivityStatusFilter.js")
+  script(type="text/javascript", src="js/filters/alreadySelected.js")
+  //directives
+  script(type="text/javascript", src="js/directives/ui-butterbar.js")
+  script(type="text/javascript", src="js/directives/ui-focus.js")
+  script(type="text/javascript", src="js/directives/ui-fullscreen.js")
+  script(type="text/javascript", src="js/directives/ui-jq.js")
+  script(type="text/javascript", src="js/directives/ui-module.js")
+  script(type="text/javascript", src="js/directives/ui-nav.js")
+  script(type="text/javascript", src="js/directives/ui-scroll.js")
+  script(type="text/javascript", src="js/directives/ui-shift.js")
+  script(type="text/javascript", src="js/directives/ui-toggleclass.js")
+  script(type="text/javascript", src="js/directives/datepicker-fix.js")
+  //controllers
+  script(type="text/javascript", src="js/controllers/pages/signinController.js")
+  script(type="text/javascript", src="js/controllers/pages/signupController.js")
+  script(type="text/javascript", src="js/controllers/pages/profileController.js")
+  script(type="text/javascript", src="js/controllers/pages/businessProfileController.js")
+  script(type="text/javascript", src="js/controllers/pages/rolesController.js")
+  script(type="text/javascript", src="js/controllers/pages/eventController.js")
+  script(type="text/javascript", src="js/controllers/pages/usersController.js")
+  script(type="text/javascript", src="js/controllers/pages/hubsController.js")
+  script(type="text/javascript", src="js/controllers/pages/hubsAdminController.js")
+  script(type="text/javascript", src="js/controllers/pages/tagsController.js")
+  script(type="text/javascript", src="js/controllers/pages/eventsController.js")
+  script(type="text/javascript", src="js/controllers/pages/businessDashboardController.js")
+  script(type="text/javascript", src="js/controllers/pages/adminDashboardController.js")
+  script(type="text/javascript", src="js/controllers/pages/recommendationsController.js")
+  script(type="text/javascript", src="js/controllers/pages/subscriptionsController.js")
+  script(type="text/javascript", src="js/controllers/pages/locationsController.js")
+  script(type="text/javascript", src="js/controllers/pages/businessProfilesController.js")
+  script(type="text/javascript", src="js/controllers/pages/hubDetailsController.js")
+  script(type="text/javascript", src="js/controllers/pages/landingController.js")
+  script(type="text/javascript", src="js/controllers/pages/playlistController.js")
+  script(type="text/javascript", src="js/controllers/pages/businessProfileSubscriptionController.js")
+  script(type="text/javascript", src="js/controllers/pages/eventDetailsController.js")
+  script(type="text/javascript", src="js/controllers/pages/friendsController.js")
+  script(type="text/javascript", src="js/controllers/pages/playerController.js")
+  //modal controllers
+  script(type="text/javascript", src="js/controllers/modals/newUserModalController.js")
+  script(type="text/javascript", src="js/controllers/modals/confirmModalController.js")
+  script(type="text/javascript", src="js/controllers/modals/newRoleModalController.js")
+  script(type="text/javascript", src="js/controllers/modals/hubModalController.js")
+  script(type="text/javascript", src="js/controllers/modals/newTagModalController.js")
+  script(type="text/javascript", src="js/controllers/modals/userDeactivatedModalController.js")
+
+  script(type="text/javascript", src="//localhost:35729/livereload.js")
+
+  //decorators
+  script(type="text/javascript", src="js/decorators/datepicker.js")
+else
+  script(type='text/javascript', src='dist/js/app.min.js?rel=@@timestamp')

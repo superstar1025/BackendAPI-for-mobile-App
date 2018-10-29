@@ -1,0 +1,98 @@
+<!-- user menu -->
+<ul class="nav" ng-if="isSignedIn">
+    <li ng-if="isAdmin || isBusinessProvider">
+        <a href ng-click="goToDashboard()">
+            <i class="glyphicon glyphicon-stats"></i>
+            <span translate="aside.nav.DASHBOARD">Dashboard</span>
+        </a>
+    </li>
+    <li ng-if="isAdmin">
+        <a ui-sref="app.page.users">
+            <i class="icon-users icon"></i>
+            <span translate="aside.nav.your_stuff.USERS">Users</span>
+        </a>
+    </li>
+    <li ng-if="isAdmin">
+        <a ui-sref="app.page.roles">
+            <i class="fa-eye fa icon"></i>
+            <span translate="aside.nav.your_stuff.ROLES">Roles</span>
+        </a>
+    </li>
+    <li ng-if="isAdmin">
+        <a ui-sref="app.page.playlist">
+            <i class="fa-headphones fa icon"></i>
+            <span translate="aside.nav.your_stuff.PLAYLIST">Playlist</span>
+        </a>
+    </li>
+    <!--
+    <li>
+        <a ui-sref="app.page.events">
+            <i class="icon-calendar icon"></i>
+            <span translate="aside.nav.your_stuff.EVENTS">Events</span>
+        </a>
+    </li>
+    <li>
+        <a ui-sref="app.page.locations">
+            <i class="icon-globe icon"></i>
+            <span translate="aside.nav.your_stuff.LOCATIONS">Locations</span>
+        </a>
+    </li>
+    <li>
+        <div ng-if="isAdmin">
+            <a ui-sref="app.page.adminHubs">
+                <i class="fa-list fa icon"></i>
+                <span translate="aside.nav.your_stuff.HUBS">Hubs</span>
+            </a>
+        </div>
+        <div ng-if="!isAdmin">
+            <a ui-sref="app.page.hubs">
+                <i class="fa-list fa icon"></i>
+                <span translate="aside.nav.your_stuff.HUBS">Hubs</span>
+            </a>
+        </div>
+    </li>
+    <li ng-if="!isAdmin">
+        <a ui-sref="app.page.subscriptions">
+            <i class="fa-group fa icon"></i>
+            <span translate="aside.nav.your_stuff.SUBSCRIPTIONS">Subscriptions</span>
+        </a>
+    </li>
+    <li ng-if="isSignedIn">
+        <a ui-sref="app.page.friends">
+            <i class="fa-globe fa icon"></i>
+            <span translate="aside.nav.your_stuff.FRIENDS">Friends</span>
+        </a>
+    </li>
+    <li ng-if="isBusinessProvider">
+        <a ui-sref="app.page.recommendations">
+            <i class="fa-comments-o fa icon"></i>
+            <span translate="aside.nav.your_stuff.RECOMMENDATIONS">Recommendations</span>
+        </a>
+    </li>
+    <li ng-if="isBusinessProvider">
+        <a ui-sref="app.page.business_profile({userId: user._id, profileId: 'my'})">
+            <i class="fa-money fa icon"></i>
+            <span translate="aside.nav.your_stuff.MYPROFILE">My profile</span>
+        </a>
+    </li>
+    <li ng-if="isAdmin">
+        <a ui-sref="app.page.tags">
+            <i class="fa-tags fa icon"></i>
+            <span translate="aside.nav.your_stuff.TAGS">Tags</span>
+        </a>
+    </li>
+    <li ng-if="isAdmin">
+        <a ui-sref="app.page.business_profiles">
+            <i class="icon-user icon"></i>
+            <span translate="aside.nav.your_stuff.BUSINESS_PROFILES">Business Profiles</span>
+        </a>
+    </li>
+    -->
+    <li ng-if="isSignedIn">
+        <a ui-sref="app.page.player">
+            <i class="fa-play-circle fa icon"></i>
+            <span translate="aside.nav.your_stuff.PLAYER">Player</span>
+        </a>
+    </li>
+</ul>
+<!-- / user menu -->

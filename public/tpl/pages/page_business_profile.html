@@ -1,0 +1,361 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+    <div class="col">
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">Business profile</h1>
+                </div>
+                <div class="col-sm-6 col-xs-12" ng-if="businessProfiles.length > 0 && !adminProfileEditMode">
+                    <ui-select ng-model="selectedProfile" theme="bootstrap"
+                               on-select="selectProfile(selectedProfile._id)">
+                        <ui-select-match placeholder="Select your business profile">{{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices
+                                repeat="profile in businessProfiles | filter: $select.search">
+                            <div class="event-type"
+                                 ng-bind-html="profile.name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-md" block-ui="blockableBusinessProfileUI">
+            <div class="row">
+                <div class="col-md-8 bg-white p-t-md">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">Business profile details</div>
+                            <div class="panel-body">
+                                <form class="form-horizontal form-validation" name="detailsForm">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="title">Name</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" name="title" id="title" ng-model="profileModel.name"
+                                                   class="form-control ng-dirty" placeholder="Name"
+                                                   ui-validate="'$value.length > 0'"/>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="address">Address</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" name="address" id="address"
+                                                   ng-model="profileModel.address"
+                                                   class="form-control" placeholder="Address"/>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="email">Email</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="email" name="email" id="email" ng-model="profileModel.email"
+                                                   class="form-control ng-dirty" placeholder="Email" required/>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="address">Phone</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" name="phone" id="phone" ng-model="profileModel.phone"
+                                                   class="form-control" placeholder="Phone"/>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="website">Website</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" name="website" id="website"
+                                                   ng-model="profileModel.website"
+                                                   class="form-control" placeholder="Website"/>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="description">Business
+                                            description</label>
+
+                                        <div class="col-sm-10">
+                                        <textarea name="description" id="description" class="form-control" rows="6"
+                                                  placeholder="Business description"
+                                                  ng-model="profileModel.description"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">Attachments</div>
+                            <div class="panel-body">
+                                <form class="form-horizontal form-validation" name="attachmentsForm">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="location">Location</label>
+
+                                        <div class="col-sm-10">
+                                            <input name="location"
+                                                   id="location"
+                                                   ng-class="{'ng-dirty ng-invalid': geoSearchTxt && locationNotFound, 'ng-valid': !locationNotFound}"
+                                                   type="text"
+                                                   class="form-control"
+                                                   ng-model="geoSearchTxt"
+                                                   ng-change="geoSearch(geoSearchTxt, attachmentsForm)"
+                                                   placeholder="Type an address">
+                                            <small class="text-muted">{{profileModel.location.display_name}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Logo</label>
+
+                                        <div class="col-lg-10">
+                                            <input ui-jq="filestyle"
+                                                   nv-file-select=""
+                                                   uploader="logoUploader"
+                                                   type="file"
+                                                   data-icon="false"
+                                                   data-classButton="btn btn-default"
+                                                   data-classInput="form-control inline v-middle input-s"
+                                                   ng-model="logo">
+
+                                            <div ng-if="logoFileError">
+                                                <p class="text-danger">
+                                                    The file could not be uploaded, please select another one.
+                                                </p>
+                                            </div>
+                                            <table class="table bg-white-only b-a"
+                                                   ng-show="logoUploader.queue.length > 0">
+                                                <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="item in logoUploader.queue">
+                                                    <td><strong>{{ item.file.name }}</strong></td>
+                                                    <td nowrap>
+                                                        <button type="button" class="btn btn-default btn-xs"
+                                                                ng-click="item.remove()">
+                                                            Remove
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="table-responsive">
+                                                <table class="table bg-white-only b-a m-b-none" ng-show="profileModel.logo">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Image</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td><strong>{{ profileModel.logo.name }}</strong></td>
+                                                        <td>
+                                                            <img height="100" width="100"
+                                                                 ng-src="{{profileModel.logo.file.original.defaultUrl}}">
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Cover image</label>
+
+                                        <div class="col-lg-10">
+                                            <input ui-jq="filestyle"
+                                                   nv-file-select=""
+                                                   uploader="coverUploader"
+                                                   type="file"
+                                                   data-icon="false"
+                                                   data-classButton="btn btn-default"
+                                                   data-classInput="form-control inline v-middle input-s"
+                                                   ng-model="cover_image">
+
+                                            <div ng-if="coverFileError">
+                                                <p class="text-danger">
+                                                    The file could not be uploaded, please select another one.
+                                                </p>
+                                            </div>
+                                            <table class="table bg-white-only b-a"
+                                                   ng-show="coverUploader.queue.length > 0">
+                                                <thead>
+                                                <tr>
+                                                    <th width="50%">Name</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="item in coverUploader.queue">
+                                                    <td><strong>{{ item.file.name }}</strong></td>
+                                                    <td nowrap>
+                                                        <button type="button" class="btn btn-default btn-xs"
+                                                                ng-click="item.remove()">
+                                                            Remove
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table bg-white-only b-a" ng-show="profileModel.cover_image">
+                                                <thead>
+                                                <tr>
+                                                    <th width="50%">Name</th>
+                                                    <th>Image</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td><strong>{{ profileModel.cover_image.name }}</strong></td>
+                                                    <td>
+                                                        <img height="100" width="100"
+                                                             ng-src="{{profileModel.cover_image.file.original.defaultUrl}}">
+                                                    </td>
+                                                    <td nowrap>
+                                                        <button type="button" class="btn btn-default btn-xs"
+                                                                ng-click="profileModel.cover_image = null">
+                                                            Remove
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">Categories</div>
+                            <div class="panel-body">
+                                <form class="form-horizontal form-validation" name="categoriesForm">
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label">Primary</label>
+
+                                        <div class="col-lg-10">
+                                            <ui-select ng-model="profileModel.primary_category" theme="bootstrap">
+                                                <ui-select-match placeholder="Select primary category">
+                                                    {{$select.selected.name}}
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="category in primaryBusinessCategories | filter: $select.search">
+                                                    <div class="event-type"
+                                                         ng-bind-html="category.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"
+                                         ng-hide="!profileModel.primary_category || secondaryBusinessCategories.length == 0">
+                                        <label class="col-lg-2 control-label">Secondary</label>
+
+                                        <div class="col-lg-10">
+                                            <ui-select ng-model="profileModel.secondary_category" theme="bootstrap">
+                                                <ui-select-match placeholder="Select secondary category">
+                                                    {{$select.selected.name}}
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="category in secondaryBusinessCategories | filter: $select.search">
+                                                    <div class="event-type"
+                                                         ng-bind-html="category.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"
+                                         ng-hide="!profileModel.secondary_category || tertiaryBusinessCategories.length == 0">
+                                        <label class="col-lg-2 control-label">Tertiary</label>
+
+                                        <div class="col-lg-10">
+                                            <ui-select ng-model="profileModel.tertiary_category" theme="bootstrap">
+                                                <ui-select-match placeholder="Select tertiary category">
+                                                    {{$select.selected.name}}
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                        repeat="category in tertiaryBusinessCategories | filter: $select.search">
+                                                    <div class="event-type"
+                                                         ng-bind-html="category.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="panel no-bg no-shadow">
+                            <div class="panel-body no-padder p-b-md">
+                                <div class="pull-right">
+                                    <button class="btn btn-sm btn-default" ng-click="cancelProfile()">Cancel</button>
+                                    <button
+                                            class="btn btn-sm btn-danger"
+                                            ng-if="isCreateEnabled"
+                                            ng-click="createProfile(profileModel)"
+                                            ng-disabled="detailsForm.$invalid || attachmentsForm.$invalid || categoriesForm.$invalid">
+                                        Create
+                                    </button>
+                                    <button
+                                            class="btn btn-sm btn-dark"
+                                            ng-if="isUpdateEnabled && businessProfiles.length > 0"
+                                            ng-click="updateProfile(profileModel)"
+                                            ng-disabled="detailsForm.$invalid || attachmentsForm.$invalid || categoriesForm.$invalid">
+                                        Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">
+                                <span class="pull-right font-normal" ng-if="businessFollowers.total > 0">
+                                    Search: <input type="text" ng-model="filterOptions.followers.filterText"/>
+                                </span>
+                                Users
+                            </div>
+                            <div class="panel-body" ng-if="!businessFollowers || businessFollowers.total == 0">
+                                <div class="text-center" translate="aside.nav.your_stuff.NO_FOLLOWERS">No Followers
+                                </div>
+                            </div>
+                            <div class="table-responsive" ng-if="businessFollowers.total > 0">
+                                <div ng-grid="followersGridOptions" class="grid-h-md"></div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">
+                                <span class="pull-right font-normal" ng-if="businessEvents.total > 0">
+                                    Search: <input type="text" ng-model="filterOptions.events.filterText"/>
+                                </span>
+                                Events
+                            </div>
+
+                            <div class="panel-body" ng-if="!businessEvents || businessEvents.total == 0">
+                                <div class="text-center" translate="aside.nav.your_stuff.NO_EVENTS">No Events</div>
+
+                            </div>
+                            <div class="table-responsive" ng-if="businessEvents.total > 0">
+                                <div ng-grid="eventsGridOptions" class="grid-h-md"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

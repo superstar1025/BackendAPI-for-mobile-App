@@ -1,0 +1,22 @@
+<div class="ngCellText" ng-click="selectEvent(row.entity)">
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-xs-4 col-lg-2 text-center b-r">
+                <p class="font-bold text-3x">{{row.entity.date_created | date: "dd"}}</p>
+
+                <p>{{row.entity.date_created | date: "MMMM yy"}}'</p>
+            </div>
+            <div class="col-xs-5 col-lg-8 text-ellipsis">
+                <div class="text-lg">{{row.entity.name}}</div>
+                <div>{{row.entity.description}}</div>
+                <small ng-if="row.entity.location.display_name" class="text-muted">at:
+                    {{row.entity.location.display_name}}
+                </small>
+            </div>
+            <div class="col-xs-3 col-lg-2 text-right">
+                <a ng-if="isSignedIn" class="btn btn-info event-action"
+                   ng-click="pickEvent(row.entity); $event.stopPropagation();">Pick</a>
+            </div>
+        </div>
+    </div>
+</div>

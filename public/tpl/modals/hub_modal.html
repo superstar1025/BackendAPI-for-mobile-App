@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-if="!new_hub._id">Create new hub</h3>
+    <h3 class="modal-title" ng-if="new_hub._id">Update hub</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal form-validation" name="form">
+        <div class="form-group">
+            <label class="col-sm-1 control-label" for="name">Name</label>
+
+            <div class="col-sm-11">
+                <input type="name" name="name" id="name" ng-model="new_hub.name" class="form-control"
+                       placeholder="Name" ui-validate="'$value.length > 0'"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label">From</label>
+            <div class="col-sm-5">
+                <p class="input-group">
+                    <input type="text"
+                           name="from"
+                           class="form-control"
+                           datepicker-popup="{{format}}"
+                           ng-model="new_hub.start_datetime"
+                           is-open="datepickers.from"
+                           datepicker-options="dateOptions"
+                           ng-required="true"
+                           close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"
+                                                    ng-click="open($event, 'from')"><i
+                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                </p>
+            </div>
+            <label class="col-sm-1 control-label">To</label>
+
+            <div class="col-sm-5">
+                <p class="input-group">
+                    <input type="text"
+                           name="to"
+                           class="form-control"
+                           datepicker-popup="{{format}}"
+                           ng-model="new_hub.end_datetime"
+                           is-open="datepickers.to"
+                           min-date="new_hub.start_datetime"
+                           max-date="'2100-01-01'"
+                           datepicker-options="dateOptions"
+                           ng-required="true"
+                           close-text="Close"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event, 'to')"><i
+                                            class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-if="!new_hub._id" ng-click="createHub(new_hub)" ng-disabled='form.$invalid'>Create</button>
+    <button class="btn btn-primary" ng-if="new_hub._id" ng-click="updateHub(new_hub)" ng-disabled='form.$invalid'>Update</button>
+</div>

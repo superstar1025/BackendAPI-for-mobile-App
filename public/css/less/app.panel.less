@@ -1,0 +1,33 @@
+.panel.scrollable-panel {
+  & > ul, .panel-body {
+    max-height: 325px;
+    overflow: auto;
+  }
+}
+
+.panel-actions .btn {
+  display: inline;
+  vertical-align: baseline;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.hub-panel {
+  cursor: pointer;
+  .panel-body {
+    padding: 50px 15px;
+  }
+}
+
+.hub-placeholder {
+  cursor: pointer;
+  border: 1px dashed @panel-border;
+  .panel-body {
+    padding: 82px 15px;
+    i {
+      font-size: 30px;
+    }
+  }
+}

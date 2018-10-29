@@ -1,0 +1,95 @@
+<div class="wrapper-md">
+    <div class="col-lg-8 center-block">
+        <div class="col-lg-8">
+            <div class="panel b-a event-widget">
+                <div class="panel-heading no-border bg-danger">
+                    <span class="text-lt text-u-c">{{event.name}}</span>
+                    <ul class="nav nav-pills pull-right" ng-if="isMyEvent">
+                        <li>
+                            <a ui-sref="app.page.event({id: event._id})"
+                               class="btn btn-default no-radius">Edit</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="item m-l-n-xxs m-r-n-xxs">
+                    <div class="bottom wrapper bg-gd-dk text-white">
+                        <div class="text-u-c h3 m-b-sm text-white">{{event.type.description}}</div>
+                        <div>{{event.start_datetime | date: "dd-MMM-yyyy hh:mm a"}} -</div>
+                        <div>{{event.end_datetime | date: "dd-MMM-yyyy hh:mm a"}}</div>
+                    </div>
+                    <img ng-src="{{event.image.file.original.defaultUrl || 'img/no_image.jpg'}}"
+                         class="img-full">
+                </div>
+                <div class="bottom wrapper">
+                    <div class="m-b-sm">{{event.description}}</div>
+                    <div>{{event.location.display_name}}</div>
+                    <div class="text-black">
+                        <p ng-repeat="hub in event.hubs" class="interest_group">
+                            {{hub.description}}<span ng-if='!$last'
+                                                     class="interest_group">,&nbsp;</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="hbox text-center b-b b-t b-light text-sm">
+                    <a href class="col padder-v text-muted b-r b-light">
+                        <i class="fa fa-eye-slash block m-b-xs fa-2x"></i>
+                    </a>
+                    <a href class="col padder-v text-muted b-r b-light">
+                        <i class="icon-share-alt block m-b-xs fa-2x"></i>
+                    </a>
+                    <a href class="col padder-v text-muted b-r b-light">
+                        <i class="icon-calendar block m-b-xs fa-2x"></i>
+                    </a>
+                    <a href class="col padder-v text-muted">
+                        <i class="icon-plus block m-b-xs fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="col-lg-12 col-md-6 col-sm-10 center-block">
+                <div class="panel panel-default" ng-if="event.location">
+                    <div class="panel-heading font-bold">
+                        Location
+                    </div>
+                    <div class="panel-body">
+                        <leaflet center="center" height="200px" markers="markers"></leaflet>
+                    </div>
+                    <div class="panel-footer" ng-if="isSignedIn">
+                        <button class="btn btn-success w-full btn-rounded">Follow</button>
+                    </div>
+                </div>
+                <div class="panel panel-default" ng-if="event.business">
+                    <div class="panel-heading font-bold">
+                        {{event.business.name}}
+                    </div>
+                    <div class="panel-body">
+                        <img class="img-full"
+                             ng-src="{{event.business.logo.file.original.defaultUrl || event.business.cover_image.file.original.defaultUrl || 'img/no_image.jpg'}}"
+                             alt="..."/>
+                    </div>
+                    <div class="panel-footer" ng-if="isSignedIn">
+                        <button class="btn btn-success w-full btn-rounded" ng-click="followBusinessProfile(event.business._id)" ng-if="!isProfileFollowed">Follow</button>
+                        <button class="btn btn-danger w-full btn-rounded" ng-click="unfollowBusinessProfile(event.business._id)" ng-if="isProfileFollowed">Unfollow</button>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading font-bold">
+                        Created By: {{event.created_by.name}}
+                    </div>
+                    <div class="panel-body">
+                        <img class="img-full" ng-src="{{event.created_by.picture || 'img/no_avatar.jpg'}}" alt="..."/>
+                    </div>
+                    <div class="panel-footer" ng-if="isSignedIn && user._id !== event.created_by._id">
+                        <button class="btn btn-success w-full btn-rounded" ng-click="addAsFriend(event.created_by._id)" ng-if="!isFriend">Add As Friend</button>
+                        <button class="btn btn-danger w-full btn-rounded" ng-click="removeFriend(event.created_by._id)" ng-if="isFriend">Unfriend</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,331 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Event creation</h1>
+</div>
+<div class="wrapper-md">
+
+    <form class="form-horizontal form-validation" name="form" block-ui="blockablePublishEventUI">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading font-bold">Event Time</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-lg-1 control-label">From</label>
+
+                            <div class="col-lg-5">
+                                <p class="input-group">
+                                    <input type="text"
+                                           name="from"
+                                           class="form-control"
+                                           datepicker-popup="{{format}}"
+                                           ng-model="event.start_datetime"
+                                           is-open="datepickers.from"
+                                           datepicker-options="dateOptions"
+                                           ng-required="true"
+                                           close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"
+                                                    ng-click="open($event, 'from')"><i
+                                                    class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                </p>
+                            </div>
+                            <label class="col-lg-1 control-label">To</label>
+
+                            <div class="col-lg-5">
+                                <p class="input-group">
+                                    <input type="text"
+                                           name="to"
+                                           class="form-control"
+                                           datepicker-popup="{{format}}"
+                                           ng-model="event.end_datetime"
+                                           is-open="datepickers.to"
+                                           min-date="event.start_datetime"
+                                           max-date="'2100-01-01'"
+                                           datepicker-options="dateOptions"
+                                           ng-required="true"
+                                           close-text="Close"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="open($event, 'to')"><i
+                                            class="glyphicon glyphicon-calendar"></i></button>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-1 control-label"></label>
+
+                            <div class="col-lg-5">
+                                <timepicker ng-required="true" ng-model="event.start_time" hour-step="timeOptions.hstep"
+                                            minute-step="timeOptions.mstep" show-meridian="true"></timepicker>
+                            </div>
+                            <label class="col-lg-1 control-label"></label>
+
+                            <div class="col-lg-5">
+                                <timepicker ng-required="true" ng-model="event.end_time" hour-step="timeOptions.hstep"
+                                            minute-step="timeOptions.mstep" show-meridian="true"></timepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading font-bold">Event Location</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <input name="geoSearchTxt"
+                                       ng-class="{'ng-dirty ng-invalid': locationNotFound, 'ng-valid': !locationNotFound}"
+                                       type="text"
+                                       class="form-control"
+                                       ng-model="geoSearchTxt"
+                                       ng-change="geoSearch(geoSearchTxt)"
+                                       placeholder="Type an address">
+                            </div>
+                        </div>
+                        <leaflet center="center" height="200px" markers="markers" event-broadcast="events"></leaflet>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading font-bold">Event Details</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Title</label>
+
+                            <div class="col-lg-10">
+                                <input
+                                        type="text"
+                                        name="title"
+                                        id="title"
+                                        ng-model="event.name"
+                                        class="form-control"
+                                        placeholder="Event title"
+                                        ui-validate="'$value.length > 0'"/>
+                                    <span ng-show="form.title.$error.validator"
+                                          class="help-block m-b-none">This field is required!</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Description</label>
+
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" ng-model="event.description"
+                                       placeholder="Event description">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Event type</label>
+
+                            <div class="col-lg-4">
+                                <ui-select ng-model="event.type" theme="bootstrap" ng-required="true">
+                                    <ui-select-match placeholder="Select event type">{{$select.selected.description}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="type in types | filter: $select.search">
+                                        <div class="event-type"
+                                             ng-bind-html="type.description | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <label class="col-lg-1 control-label">Public</label>
+
+                            <div class="col-sm-2">
+                                <label class="i-switch bg-info m-t-xs m-r with-label">
+                                    <input type="radio" ng-model="event.is_public" name="switch" ng-value="true">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <label class="col-lg-1 control-label">Private</label>
+
+                            <div class="col-sm-2">
+                                <label class="i-switch bg-info m-t-xs m-r with-label">
+                                    <input type="radio" ng-model="event.is_public" name="switch" ng-value="false">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Image</label>
+
+                            <div class="col-lg-10">
+                                <input ui-jq="filestyle"
+                                       nv-file-select=""
+                                       uploader="uploader"
+                                       type="file"
+                                       data-icon="false"
+                                       data-classButton="btn btn-default"
+                                       data-classInput="form-control inline v-middle input-s"
+                                       ng-model="fileItem">
+
+                                <div ng-if="fileError">
+                                    <p class="text-danger">
+                                        The file could not be uploaded, please select another one.
+                                    </p>
+                                </div>
+                                <table class="table bg-white-only b-a" ng-show="uploader.queue.length > 0">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in uploader.queue">
+                                        <td><strong>{{ item.file.name }}</strong></td>
+                                        <td nowrap>
+                                            <button type="button" class="btn btn-default btn-xs"
+                                                    ng-click="item.remove()">
+                                                Remove
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="table-responsive">
+                                    <table class="table bg-white-only b-a m-b-none" ng-show="event.image">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Image</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td><strong>{{ event.image.name }}</strong></td>
+                                            <td>
+                                                <img height="100" width="100"
+                                                     ng-src="{{event.image.file.original.defaultUrl}}">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default"
+                     ng-hide="businessProviders.length == 0 ||
+                              isBusinessProvider && businessProviders.length == 1 && businessProfiles.length == 0">
+                    <div class="panel-heading font-bold">Business Options</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+                            <div class="form-group" ng-hide="isBusinessProvider">
+                                <label class="col-lg-2 control-label">Business User</label>
+
+                                <div class="col-lg-10">
+                                    <ui-select theme="bootstrap" ng-model="event.businessProvider"
+                                               on-select="businessProviderSelected(event, $item)">
+                                        <ui-select-match placeholder="Business User">{{$select.selected.name}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="provider in businessProviders | filter: $select.search">
+                                            <div class="event-type"
+                                                 ng-bind-html="provider.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-hide="!businessProfiles || businessProfiles.length == 0">
+                                <label class="col-lg-2 control-label">Business Profile</label>
+
+                                <div class="col-lg-10">
+                                    <ui-select ng-model="event.business" theme="bootstrap">
+                                        <ui-select-match placeholder="Business Profile">{{$select.selected.name}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="profile in businessProfiles | filter: $select.search">
+                                            <div class="event-type"
+                                                 ng-bind-html="profile.name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading font-bold">Options</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Hubs</label>
+
+                            <div class="col-lg-10">
+                                <ui-select multiple ng-model="event.hubs" theme="bootstrap">
+                                    <ui-select-match placeholder="Select hubs">{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="hub in hubs | areadySelected:event.hubs">
+                                        <div class="event-hub"
+                                             ng-bind-html="hub.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Tags</label>
+
+                            <div class="col-lg-10">
+                                <ui-select multiple tagging="tagTransform" ng-model="event.tags"
+                                           theme="bootstrap"
+                                           on-select="itemSelected($item, tags)">
+                                    <ui-select-match placeholder="Select tags">{{$item.name}}</ui-select-match>
+                                    <ui-select-choices repeat="tag in tags | areadySelected:event.tags">
+                                        <div class="event-tag"
+                                             ng-bind-html="tag.name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group" id="allowements">
+                            <label class="col-lg-3 control-label">Allow comments</label>
+
+                            <div class="col-lg-3">
+                                <label class="i-switch bg-info m-t-xs m-r">
+                                    <input type="checkbox" checked="" ng-model="event.comments_allowed">
+                                    <i></i>
+                                </label>
+                            </div>
+                            <label class="col-lg-3 control-label">Allow attachments</label>
+
+                            <div class="col-lg-3">
+                                <label class="i-switch bg-info m-t-xs m-r">
+                                    <input type="checkbox" checked="" ng-model="event.attachments_allowed">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <div class="col-lg-12 ">
+                                <div class="pull-left" ng-if="isNewEvent">
+                                    <button class="btn btn-sm btn-dark" ng-click="updateEvent(event, true)"
+                                            ng-disabled="form.$invalid">Save as a draft
+                                    </button>
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-sm btn-default" ng-click="cancelEvent()">Cancel</button>
+                                    <button ng-if="isNewEvent" class="btn btn-sm btn-danger"
+                                            ng-click="updateEvent(event, false)"
+                                            ng-disabled="form.$invalid">Create
+                                    </button>
+                                    <button ng-if="!isNewEvent" class="btn btn-sm btn-info"
+                                            ng-click="updateEvent(event, false)"
+                                            ng-disabled="form.$invalid">Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

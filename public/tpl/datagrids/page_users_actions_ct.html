@@ -1,0 +1,8 @@
+<div class="ngCellText cellToolTip">
+    <button class="btn btn-sm btn-info" ng-click="editUser(row.entity)" tooltip-placement="left"
+            tooltip="Edit user profile"><i class="glyphicon glyphicon-edit"></i></button>
+    <button class="btn btn-sm btn-danger" ng-click="toggleAccount(row.entity, false)" tooltip-placement="left"
+            tooltip="Deactivate user" ng-show="row.entity.is_active"><i class="glyphicon glyphicon-remove"></i></button>
+    <button class="btn btn-sm btn-success" ng-click="toggleAccount(row.entity, true)" tooltip-placement="left"
+            tooltip="Activate user" ng-show="!row.entity.is_active"><i class="glyphicon glyphicon-ok"></i></button>
+</div>

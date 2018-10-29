@@ -1,0 +1,89 @@
+<div class="bg-light lter b-b wrapper-md">
+    <div class="row">
+        <div class="col-xs-6">
+            <h1 class="m-n font-thin h3 text-black">Hubs</h1>
+        </div>
+        <div class="col-xs-6">
+            <div class="btn-group pull-right">
+                <label class="btn btn-info" ng-model="hubsFilter" btn-radio="'all'">All</label>
+                <label class="btn btn-info" ng-model="hubsFilter" btn-radio="'my'">My</label>
+                <label class="btn btn-info" ng-model="hubsFilter" btn-radio="'new'">New</label>
+                <label class="btn btn-info" ng-model="hubsFilter" btn-radio="'following'">Following</label>
+                <label class="btn btn-info" ng-model="hubsFilter" btn-radio="'muted'">Muted</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-if="allHubs.length > 0">
+    <div class="wrapper">
+        <div class="row">
+            <div ng-repeat="entry in allHubs">
+                <div class="col-lg-2 col-sm-4">
+                    <div class="panel panel-default hub-placeholder" ng-if="!entry.hub._id"
+                         ng-click="createNewHub(entry.hub._id)">
+                        <div class="panel-body">
+                            <div class="clearfix text-center">
+                                <i class="fa fa-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default hub-panel" ng-if="entry.hub._id"
+                         ng-click="goToHubDetais(entry.hub._id)">
+                        <div ng-if="user._id === entry.hub.created_by._id"
+                             class="panel-header pull-right"
+                             ng-click="editHub(entry.hub); $event.stopPropagation();">
+                            <a class="btn btn-default">Edit</a>
+                        </div>
+                        <div class="panel-body">
+                            <div class="clearfix text-center">
+                                <div class="inline">
+                                    <div class="h4 m-b-xs">{{entry.hub.name}}</div>
+                                    <small class="text-muted m-b">Events: {{entry.hub.events_count}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="panel-footer text-center no-padder">
+                            <div class="row no-gutter">
+                                <div class="col-xs-6 bg-success" ng-if="!entry.isFollowed"
+                                     ng-click="followHub(entry); $event.stopPropagation();">
+                                    <div class="wrapper">
+                                        <span class="block text-white">Follow</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 bg-danger" ng-if="entry.isFollowed"
+                                     ng-click="unfollowHub(entry); $event.stopPropagation();">
+                                    <div class="wrapper">
+                                        <span class="block text-white">Unfollow</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 bg-dark" ng-if="!entry.isMuted"
+                                     ng-click="muteHub(entry); $event.stopPropagation();">
+                                    <div class="wrapper">
+                                        <span class="block text-white">Mute</span>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 bg-primary" ng-if="entry.isMuted"
+                                     ng-click="unmuteHub(entry); $event.stopPropagation();">
+                                    <div class="wrapper">
+                                        <span class="block text-white">Unmute</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+                <div class="clearfix" ng-if="($index+1) % 6 == 0"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper no-data" ng-if="allHubs.length == 0">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p>No hubs</p>
+        </div>
+    </div>
+</div>

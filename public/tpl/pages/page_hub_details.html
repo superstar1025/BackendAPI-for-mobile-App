@@ -1,0 +1,81 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+    <div class="col">
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-xs-6">
+                    <span class="m-n font-thin h3 text-black">{{hub.name}}</span>
+                </div>
+                <div class="col-xs-6">
+                    <div class="pull-right">
+                        <button class="btn btn-dark m-l-sm" ng-click="goBack()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper-md">
+            <div class="row">
+                <div class="col-md-12 p-t-md">
+                    <div class="col-md-6">
+                        <p>EVENTS</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">
+                                Users Following
+                                <span class="pull-right panel-actions"
+                                      ng-if="isSignedIn">
+                                    <a class="btn btn-success" ng-if="!isHubFollowed"
+                                       ng-click="followHub(hub._id)">Follow</a>
+                                </span>
+                                <span class="pull-right panel-actions"
+                                      ng-if="isSignedIn">
+                                    <a class="btn btn-danger" ng-if="isHubFollowed"
+                                       ng-click="unfollowHub(hub._id)">Unfollow</a>
+                                </span>
+                            </div>
+                            <div class="panel-body" ng-if="!hubFollowers || hubFollowers.total == 0">
+                                <div class="text-center" translate="aside.nav.your_stuff.NO_FOLLOWERS">No Followers
+                                </div>
+                            </div>
+                            <div class="panel-body text-center" ng-if="hubFollowers.total > 0">
+                                <div class="wrapper-xs inline" ng-repeat="follower in hubFollowers.followers">
+                                    <a href><img class="thumb-follower"
+                                                 ng-src="{{follower.user.picture || 'img/no_avatar.jpg'}}"/></a>
+                                    <p class="m-b-none">{{follower.user.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">
+                                Businesses in this hub
+                            </div>
+                            <div class="panel-body" ng-if="!hubBusinesses || hubBusinesses.length == 0">
+                                <div class="text-center" translate="aside.nav.your_stuff.NO_BUSINESSES">No Businesses
+                                </div>
+                            </div>
+                            <ul class="list-group alt" ng-if="hubBusinesses.length > 0">
+                                <li class="list-group-item clickable" ng-repeat="business in hubBusinesses"
+                                    ng-click="goToProfileSubscription(business.profile._id)">
+                                    <div class="media">
+                                        <div class="media-body w-full">
+                                            <div>{{business.profile.name}}</div>
+                                            <small class="text-muted">
+                                                <span ng-show="business.profile.primary_category">{{business.profile.primary_category.name}}</span>
+                                                <span ng-show="business.profile.secondary_category">/ {{business.profile.secondary_category.name}}</span>
+                                                <span ng-show="business.profile.tertiary_category">/ {{business.profile.tertiary_category.name}}</span>
+                                            </small>
+                                        </div>
+                                        <div class="media-body text-right">
+                                            <small class="label bg-danger">{{business.followers_count}}</small>
+                                            <small class="label bg-success">{{business.profile.events_count}}</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
